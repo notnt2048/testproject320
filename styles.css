@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    color:#ffffff;
+    margin: 0;
+    padding: 0;
+    background: black;
+}
+header {
+    padding: 20px;
+    background: #310070;
+    color: #fff;
+    text-align: center;
+}
+main {
+    padding: 20px;
+}
+.bar {
+    height: 20px;
+    background: red;
+}
+.bar.green { background: green; }
+.bar.yellow { background: rgb(217, 255, 0); }
+.bar.orange { background: orange; }
+.bar.blue { background: rgb(0, 183, 255); }
+v
