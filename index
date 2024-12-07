@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Quiz Website</h1>
+        <button onclick="downloadTemplate()">Download Excel Template</button>
+        <input type="file" id="importFile" accept=".xlsx" onchange="importExcel()" />
+    </header>
+    <main>
+        <div id="quiz-container">
+            <!-- Progress Section -->
+            <section id="progress">
+                <h2>Progress</h2>
+                <div id="accuracy-bar" class="bar"></div>
+                <p id="accuracy-info">Accuracy: 0% | Correct: 0 | Incorrect: 0 | Radical Coins: 0 | QPM: 0.00</p>
+                <input type="checkbox" id="toggle-images" checked> Show Accuracy Images
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz">
+                <div id="question-area">
+                    <p id="question-text">Question will appear here</p>
+                    <div id="options"></div>
+                    <input type="text" id="fill-answer" placeholder="Type your answer" />
+                </div>
+                <div id="streak-info">
+                    <img id="streak-image" src="STREAK/default.png" alt="Streak Image">
+                    <div id="streak-bar"></div>
+                    <button onclick="resetQuiz()">Reset Quiz</button>
+                </div>
+                <!-- Music control option -->
+                <div>
+                 <label for="music-toggle">Play Music</label>
+                 <input type="checkbox" id="music-toggle" checked>
+                </div>
+
+            </section>
+            <section id="question-rate">
+                <h3 id="questions-per-minute">Questions per minute: 0.00</h3> <!-- Added decimal places -->
+            </section>     
+        </div>
+    </main>
+    <footer>
+        <p>Created for an interactive quiz experience.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+</html>
