@@ -7,12 +7,12 @@ let questionsAnswered = 0;
 let beststreak = 0;
 let lastUpdateTime = Date.now();
 let musicPlaying = false; // Track if music is playing
-let audio = new Audio('./assets/quizzizz audio.mp3'); // Load the background music file
-let audio1 = new Audio('./assets/incorrect.mp3');
-let audio2 = new Audio('./assets/correct.mp3');
+let musicaudio = new Audio('./assets/{insert music audio here}'); // Load the background music file
+let correctsound = new Audio('./assets/{insert music audio here}'); // Load the correct sound audio here
+let incorrectsound = new Audio('./assets/{insert music audio here}'); // Load the incorrect sound audio here
 
-audio1.load();
-audio2.load();
+correctsound.load();
+incorrectsound.load();
 
 // Import Excel file
 function importExcel() {
@@ -85,7 +85,7 @@ function loadNextQuestion() {
 function checkAnswer(question, answer) {
     if (String(answer).toLowerCase() === String(question.correct).toLowerCase()) {
         correctAnswers++;
-        audio1.play();
+        correctsound.play();
         streak++;
         radicalCoins += Math.round(1000 / ((correctAnswers + incorrectAnswers) || 1));
         showStreakEffect();
@@ -95,7 +95,7 @@ function checkAnswer(question, answer) {
         }
     } else {
         incorrectAnswers++;
-        audio2.play();
+        incorrectsound.play();
         streak = 0;
         alert(`Incorrect! The correct answer was: ${question.correct}`);
         showGameOver(); // Trigger game over effect
