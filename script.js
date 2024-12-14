@@ -7,12 +7,12 @@ let questionsAnswered = 0;
 let beststreak = 0;
 let lastUpdateTime = Date.now();
 let musicPlaying = false; // Track if music is playing
-let musicaudio = new Audio('./assets/{insert music audio here}'); // Load the background music file
-let correctsound = new Audio('./assets/{insert music audio here}'); // Load the correct sound audio here
-let incorrectsound = new Audio('./assets/{insert music audio here}'); // Load the incorrect sound audio here
+let audio = new Audio('{INSERT MUSIC HERE IF NEEDED}'); // Load the background music file
+let audio1 = new Audio('{INSERT CORRECT AUDIO HERE}');
+let audio2 = new Audio('{INSERT INCORRECT AUDIO HERE}');
 
-correctsound.load();
-incorrectsound.load();
+audio1.load();
+audio2.load();
 
 // Import Excel file
 function importExcel() {
@@ -69,6 +69,9 @@ function loadNextQuestion() {
             const btn = document.createElement("button");
             btn.textContent = option;
             btn.onclick = () => checkAnswer(question, index + 1);
+            btn.style.height = "100px"; // Set the button height to 100 pixels
+            btn.style.display = "block"; // Ensure the buttons are stacked vertically
+            btn.style.margin = "10px 0"; // Add margin for better spacing
             optionsDiv.appendChild(btn);
         });
         document.getElementById("fill-answer").style.display = "none";
@@ -85,7 +88,7 @@ function loadNextQuestion() {
 function checkAnswer(question, answer) {
     if (String(answer).toLowerCase() === String(question.correct).toLowerCase()) {
         correctAnswers++;
-        correctsound.play();
+        audio1.play();
         streak++;
         radicalCoins += Math.round(1000 / ((correctAnswers + incorrectAnswers) || 1));
         showStreakEffect();
@@ -95,7 +98,7 @@ function checkAnswer(question, answer) {
         }
     } else {
         incorrectAnswers++;
-        incorrectsound.play();
+        audio2.play();
         streak = 0;
         alert(`Incorrect! The correct answer was: ${question.correct}`);
         showGameOver(); // Trigger game over effect
@@ -115,8 +118,9 @@ function showGameOver() {
 
 // Update progress
 function updateProgress() {
-    const accuracy =
-        ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(2);
+    const totalQuestions = correctAnswers + incorrectAnswers;
+    const streakaccuracy = ((streak / (streak + 1)) * 100).toFixed(2);
+    const accuracy = ((correctAnswers / (correctAnswers + incorrectAnswers)) * 100).toFixed(2);
     const accuracyBar = document.getElementById("accuracy-bar");
 
     // Determine the grade letter
@@ -128,7 +132,7 @@ function updateProgress() {
         gradeLetter = 'A';
         accuracyBar.className = "bar green";
     } else if (accuracy >= 90) {
-        gradeLetter = 'A-';
+        gradeLetter = 'A−';
         accuracyBar.className = "bar green";
     } else if (accuracy >= 87) {
         gradeLetter = 'B+';
@@ -137,7 +141,7 @@ function updateProgress() {
         gradeLetter = 'B';
         accuracyBar.className = "bar yellow";
     } else if (accuracy >= 80) {
-        gradeLetter = 'B-';
+        gradeLetter = 'B−';
         accuracyBar.className = "bar yellow";
     } else if (accuracy >= 77) {
         gradeLetter = 'C+';
@@ -146,7 +150,7 @@ function updateProgress() {
         gradeLetter = 'C';
         accuracyBar.className = "bar orange";
     } else if (accuracy >= 70) {
-        gradeLetter = 'C-';
+        gradeLetter = 'C−';
         accuracyBar.className = "bar orange";
     } else if (accuracy >= 67) {
         gradeLetter = 'D+';
@@ -155,7 +159,7 @@ function updateProgress() {
         gradeLetter = 'D';
         accuracyBar.className = "bar red";
     } else if (accuracy >= 60) {
-        gradeLetter = 'D-';
+        gradeLetter = 'D−';
         accuracyBar.className = "bar red";
     } else {
         gradeLetter = 'F';
@@ -165,7 +169,8 @@ function updateProgress() {
     // Update the UI with the accuracy, grade letter, and other stats
     document.getElementById(
         "accuracy-info"
-    ).textContent = `Accuracy: ${accuracy}% (${gradeLetter}) | Correct: ${correctAnswers} | Incorrect: ${incorrectAnswers} | Radical Coins: ${radicalCoins} | Best: ${beststreak}`;
+    ).textContent = `Accuracy: ${accuracy}% (${gradeLetter}) | Correct: ${correctAnswers} | Incorrect: ${incorrectAnswers} | Total: ${totalQuestions} | Score: ${radicalCoins} | Best Streak: ${beststreak}`;
+    document.getElementById("streakcolor").textContent = `Streak accuracy: ${streakaccuracy}%`
 }
 
 
